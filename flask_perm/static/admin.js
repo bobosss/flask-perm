@@ -88,8 +88,8 @@ PermAdmin.config(['NgAdminConfigurationProvider', function (nga) {
     fields.user,
     fields.all_permission,
   ]);
+  userPermission.editionView().fields(userPermission.creationView().fields());
   userPermission.showView().disable();
-
 
   userGroupPermission.listView().fields([
     fields.userGroup,
@@ -104,6 +104,7 @@ PermAdmin.config(['NgAdminConfigurationProvider', function (nga) {
     fields.all_permission,
   ]);
 
+  userGroupPermission.editionView().fields(userGroupPermission.creationView().fields());
   userGroupPermission.showView().disable();
 
   userGroupMember.listView().fields([
@@ -118,7 +119,6 @@ PermAdmin.config(['NgAdminConfigurationProvider', function (nga) {
     fields.userGroup,
     fields.user,
   ]);
-
 
   // ...
   // attach the admin application to the DOM and execute it

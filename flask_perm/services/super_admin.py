@@ -6,7 +6,7 @@ from ..models import SuperAdmin
 def create(email, password):
     super_admin = SuperAdmin(
         email=email,
-        password=bcrypt.generate_password_hash(password)
+        password=bcrypt.generate_password_hash(password).decode('utf-8')
     )
     db.session.add(super_admin)
     db.session.commit()

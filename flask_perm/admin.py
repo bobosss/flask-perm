@@ -15,7 +15,17 @@ def index():
         'debug': current_app.config.get('DEBUG'),
     }
 
-    return render_template('/perm-admin/index.html', **render_data)
+    return render_template('/index.html', **render_data)
+
+@bp.route('/create_superadmin', methods=['GET', 'POST'])
+def create_superadmin():
+    password = u"bobos"
+    confirm_password = u"bobos"
+    email = u"bobos@bobos.gr"
+    current_app.extensions['perm'].create_super_admin(email, password)
+    return render_template('/index.html', **render_data)
+
+
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -29,7 +39,7 @@ def login():
         else:
             flash(u'Invalid Password', 'error')
             return redirect(url_for('perm-admin.login'))
-    return render_template('/perm-admin/login.html')
+    return render_template('/login.html')
 
 @bp.route('/logout')
 def logout():

@@ -41,7 +41,7 @@ class Perm(object):
 
         db.app = app
         db.init_app(app)
-
+        self.app = app
         bcrypt.app = app
         bcrypt.init_app(app)
 
@@ -49,7 +49,10 @@ class Perm(object):
         app.config.setdefault('PERM_ADMIN_ECHO', False)
 
         from . import models
-        db.create_all()
+        try:
+            db.create_all()
+        except:
+            print('Allready Created')
 
         from .api import bp as api_bp
         app.register_blueprint(api_bp, url_prefix=app.config.get('PERM_ADMIN_PREFIX') + '/api')
@@ -180,7 +183,7 @@ class Perm(object):
         if self.users_callback is None:
             raise NotImplementedError('You must register users_loader!')
         return self.users_callback(**dict(
-            filter_by=filter_by,
+            filter_by={},
             sort_field=sort_field,
             sort_dir=sort_dir,
             offset=offset,
@@ -357,7 +360,9 @@ class Perm(object):
         :param flask_script_manager: a flask.ext.script.Manager object.
         """
         from .script import perm_manager
+        from .script import create_superadmin
         flask_script_manager.add_command('perm', perm_manager)
+        flask_script_manager.add_command('create_superadmin', create_superadmin)
 
     def register_context_processors(self, app):
         """Register default context processors to app.

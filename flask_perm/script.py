@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
 from flask import current_app
-from flask.ext.script import Manager, prompt_pass, prompt_bool
+from flask_script import Manager, prompt_pass, prompt_bool
 from flask_perm.services import SuperAdminService
 
 perm_manager = Manager(usage="Perform permission operations")
 
 
+
 @perm_manager.command
-@perm_manager.option('-e', '--email', help='Super admin email')
+#@perm_manager.option('-e', '--email', help='Super admin email')
 def create_superadmin(email):
+    print('arxidia')
     password = prompt_pass('Please input password')
     confirm_password = prompt_pass('Please input password again')
     if password != confirm_password:
@@ -21,6 +23,7 @@ def create_superadmin(email):
 @perm_manager.command
 @perm_manager.option('-e', '--email', help='Super admin email')
 def delete_superadmin(email):
+    print('arxidia')
     super_admin = SuperAdminService.get_by_email(email)
     if not super_admin:
         print('Super admin not found!')
