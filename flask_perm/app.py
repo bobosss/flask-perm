@@ -50,7 +50,8 @@ class Perm(object):
 
         from . import models
         try:
-            db.create_all()
+            #db.create_all()
+            a=2
         except:
             print('Allready Created')
 
